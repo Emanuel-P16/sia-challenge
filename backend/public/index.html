@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIA INTERACTIVE</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" -->
+    <!-- integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./src/main.css">
 </head>
+
 <body class="container">
-    <h1>Socket Client</h1>
+    <!-- <h1>Socket Client</h1>
     <hr>
     <p>
-        Server Status: 
+        Server Status:
         <span id="lblOnline">Online</span>
         <span id="lblOffline">Offline</span>
     </p>
@@ -25,8 +29,14 @@
                 Enviar
             </button>
         </div>
+    </div> -->
+    <div class="videoContainer">
+            <video id="video" src="./src/Gol.mp4" width="420" autoplay controls loop muted />
+            <!-- </video> -->
+        <!-- <video src="./src/Gol.mp4"></video> -->
     </div>
 </body>
 <script src="./socket.io/socket.io.js"></script>
 <script src="js/socket-client.js"></script>
+
 </html>
