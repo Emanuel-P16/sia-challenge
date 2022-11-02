@@ -4,6 +4,11 @@
 // const txtMensaje = document.querySelector('#txtMensaje')
 // const btnEnviar = document.querySelector('#btnEnviar')
 const video = document.querySelector('#video')
+const play = document.querySelector('#play')
+const pause = document.querySelector('#pause')
+const back = document.querySelector('#back')
+const foward = document.querySelector('#foward')
+const value = 10;
 
 
 const socket = io();
@@ -21,7 +26,6 @@ socket.on('disconnect', () => {
 })
 
 socket.on('enviar-mensaje', (payload) => {
-    console.log(payload)
     if (payload.mensaje === "play") {
         video.play();
     } else if (payload.mensaje === "pause") {
@@ -45,7 +49,6 @@ socket.on('enviar-mensaje', (payload) => {
 //     socket.emit('enviar-mensaje',payload)
 
 // })
-
 video.addEventListener('play', () => {
     const mensaje = "play";
     const payload = {
@@ -68,4 +71,18 @@ video.addEventListener('seeked', () => {
         mensaje
     }
     socket.emit('enviar-mensaje', payload)
+})
+
+/// Buttons Events
+play.addEventListener('click',()=>{
+    video.play()
+})
+pause.addEventListener('click',()=>{
+    video.pause()
+})
+back.addEventListener('click',()=>{
+    video.currentTime += (value * -1);
+})
+foward.addEventListener('click',()=>{
+    video.currentTime +=value;
 })

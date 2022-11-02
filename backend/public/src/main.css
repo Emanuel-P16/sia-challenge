@@ -9,13 +9,18 @@ body {
     /* padding: 0;
     margin: 0; */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 0;
 }
 #video{
     width: 80%;
     height: 80%;
     margin: auto 0;
+}
+.buttonContainer{
+    margin-top: 1rem;
 }
 /* .videoCard{
     width: 100%;
