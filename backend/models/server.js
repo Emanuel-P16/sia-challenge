@@ -9,7 +9,7 @@ class Server {
         this.port = process.env.PORT;
         this.server = require('http').createServer(this.app)
         this.io = require('socket.io')(this.server)
-
+        this.oldmsg = {}
         this.paths = {
         }
         // Middlewares
@@ -50,8 +50,11 @@ class Server {
                 console.log('Cliente desconectado', socket.id)
             })
             socket.on('enviar-mensaje',(payload)=>{
-                console.log(payload)
-                this.io.emit('enviar-mensaje',payload)
+                    console.log(payload)
+                    this.io.emit('enviar-mensaje',payload)
+
+                
+                
             })
         })
     }
