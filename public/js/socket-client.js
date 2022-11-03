@@ -19,8 +19,10 @@ socket.on('disconnect', () => {
 socket.on('enviar-mensaje', (payload) => {
     if (payload.mensaje === "play") {
         video.play();
+        // window.setTimeout(function(){video.pause},1)
     } else if (payload.mensaje === "pause") {
         video.pause();
+        // window.setTimeout(function(){video.play},1)
     }
     //  else {
     //     console.log(lastSeekServer)
@@ -48,6 +50,7 @@ video.addEventListener('play', () => {
         mensaje
     }
     socket.emit('enviar-mensaje', payload)
+
 })
 video.addEventListener('pause', () => {
     const mensaje = "pause";
@@ -58,7 +61,8 @@ video.addEventListener('pause', () => {
     socket.emit('enviar-mensaje', payload)
 })
 
-video.addEventListener('seeked', () => {
+video.addEventListener('seeked', (e) => {
+    e.preventDefault()
 
     const mensaje = video.currentTime | 0
     const payload = {
