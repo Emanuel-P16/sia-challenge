@@ -9,14 +9,11 @@ class Server {
         this.port = process.env.PORT;
         this.server = require('http').createServer(this.app)
         this.io = require('socket.io')(this.server)
-        this.oldmsg = {}
         this.paths = {
         }
         // Middlewares
         this.middlewares();
 
-        // Rutas de mi aplicación
-        this.routes();
 
         // Sockets
         this.sockets();
@@ -39,9 +36,7 @@ class Server {
 
     }
 
-    routes() {
-        
-    }
+
 
     sockets(){
         this.io.on('connection',socket=>{
@@ -51,18 +46,12 @@ class Server {
             })
             socket.on('enviar-mensaje',(payload)=>{
                     console.log(payload)
-                    // socket.broadcast.emit('enviar-mensaje',payload)
                     this.io.emit('enviar-mensaje',payload)
-                    // socket.broadcast.emit('enviar-mensaje',payload)
-
-                
                 
             })
             socket.on('seeked',(payload)=>{
                 console.log(payload)
-                // socket.broadcast.emit('enviar-mensaje',payload)
                 this.io.emit('seeked',payload)
-                // socket.broadcast.emit('enviar-mensaje',payload)
 
             
             

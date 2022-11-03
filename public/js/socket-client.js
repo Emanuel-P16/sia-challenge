@@ -19,30 +19,13 @@ socket.on('disconnect', () => {
 socket.on('enviar-mensaje', (payload) => {
     if (payload.mensaje === "play") {
         video.play();
-        // window.setTimeout(function(){video.pause},1)
     } else if (payload.mensaje === "pause") {
         video.pause();
-        // window.setTimeout(function(){video.play},1)
     }
-    //  else {
-    //     console.log(lastSeekServer)
-    //     lastSeekServer = payload.mensaje
-    //     // video.currentTime = payload.mensaje
-    // }
-    // {
-    //     lastSeekServer = payload.mensaje
-    //     if (video.currentTime === payload.mensaje) {
-    //         return null
-    //     } else if (video.currentTime !== payload.mensaje) {
-    //         video.currentTime = payload.mensaje
-
-    //     }
-    // }
 })
 socket.on('seeked',(payload)=>{
     lastSeekServer = payload.mensaje
     video.currentTime = lastSeekServer
-    // console.log('hola')
 })
 video.addEventListener('play', () => {
     const mensaje = "play";
@@ -68,8 +51,6 @@ video.addEventListener('seeked', (e) => {
     const payload = {
         mensaje
     }
-    console.log(lastSeekServer)
-    console.log(payload.mensaje)
     if (payload.mensaje !== lastSeekServer) {
         socket.emit('seeked',payload)
     }
