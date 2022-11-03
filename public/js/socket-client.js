@@ -1,28 +1,19 @@
 
-// const lblOnline = document.querySelector('#lblOnline')
-// const lblOffline = document.querySelector('#lblOffline')
-// const txtMensaje = document.querySelector('#txtMensaje')
-// const btnEnviar = document.querySelector('#btnEnviar')
 const video = document.querySelector('#video')
 const play = document.querySelector('#play')
 const pause = document.querySelector('#pause')
 const back = document.querySelector('#back')
 const foward = document.querySelector('#foward')
 const value = 10;
+let lastSeekServer = null;
 
 
 const socket = io();
 
 socket.on('connect', () => {
-    // console.log('conectado');
-    // lblOffline.style.display = 'none';
-    // lblOnline.style.display = '';
 })
 
 socket.on('disconnect', () => {
-    // console.log('desconectado del servidor');
-    // lblOnline.style.display = 'none';
-    // lblOffline.style.display = '';
 })
 
 socket.on('enviar-mensaje', (payload) => {
@@ -30,28 +21,27 @@ socket.on('enviar-mensaje', (payload) => {
         video.play();
     } else if (payload.mensaje === "pause") {
         video.pause();
-    } else {
-        if (video.currentTime === payload.mensaje) {
-            // console.log('hola')
-         return null
-        } else if(video.currentTime !== payload.mensaje){
-            video.currentTime = payload.mensaje  
-            // console.log('hola')
-            
-        }
     }
+    //  else {
+    //     console.log(lastSeekServer)
+    //     lastSeekServer = payload.mensaje
+    //     // video.currentTime = payload.mensaje
+    // }
+    // {
+    //     lastSeekServer = payload.mensaje
+    //     if (video.currentTime === payload.mensaje) {
+    //         return null
+    //     } else if (video.currentTime !== payload.mensaje) {
+    //         video.currentTime = payload.mensaje
+
+    //     }
+    // }
 })
-// btnEnviar.addEventListener('click',()=>{
-//     const mensaje = txtMensaje.value
-//     const payload = {
-//         mensaje,
-//         id: "123ABC",
-//         fecha: new Date().getTime()
-
-//     }
-//     socket.emit('enviar-mensaje',payload)
-
-// })
+socket.on('seeked',(payload)=>{
+    lastSeekServer = payload.mensaje
+    video.currentTime = lastSeekServer
+    // console.log('hola')
+})
 video.addEventListener('play', () => {
     const mensaje = "play";
     const payload = {
@@ -67,47 +57,41 @@ video.addEventListener('pause', () => {
 
     socket.emit('enviar-mensaje', payload)
 })
-// video.addEventListener('seeked', () => {
-//     // console.log(video.currentTime)
-//     // video.pause()
-//     const mensaje = video.currentTime
-//     const payload = {
-//         mensaje
-//     }
-//     socket.emit('enviar-mensaje', payload)
-// })
+
 video.addEventListener('seeked', () => {
-    // console.log(video.currentTime)
-    // video.pause()
+
     const mensaje = video.currentTime | 0
     const payload = {
         mensaje
     }
-    socket.emit('enviar-mensaje', payload)
-    // console.log('buscar')
+    console.log(lastSeekServer)
+    console.log(payload.mensaje)
+    if (payload.mensaje !== lastSeekServer) {
+        socket.emit('seeked',payload)
+    }
 })
 
 /// Buttons Events
-play.addEventListener('click',()=>{
+play.addEventListener('click', () => {
     video.play()
 })
-pause.addEventListener('click',()=>{
+pause.addEventListener('click', () => {
     video.pause()
 })
-back.addEventListener('click',()=>{
+back.addEventListener('click', () => {
     video.currentTime += (value * -1);
     const mensaje = video.currentTime | 0
     const payload = {
         mensaje
     }
-    socket.emit('enviar-mensaje', payload)
+    socket.emit('seeked', payload)
 
 })
-foward.addEventListener('click',()=>{
-    video.currentTime +=value ;
+foward.addEventListener('click', () => {
+    video.currentTime += value;
     const mensaje = video.currentTime | 0
     const payload = {
         mensaje
     }
-    socket.emit('enviar-mensaje', payload)
+    socket.emit('seeked', payload)
 })
