@@ -34,7 +34,7 @@ socket.on('enviar-mensaje', (payload) => {
         if (video.currentTime === payload.mensaje) {
         } else {
             video.currentTime = payload.mensaje + 0.1
-            video.play()
+            // video.play()
         }
     }
 })

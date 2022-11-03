@@ -22,6 +22,9 @@ body {
 .buttonContainer{
     margin-top: 1rem;
 }
+.buttonContainer button{
+    border-radius: 5px;
+}
 /* .videoCard{
     width: 100%;
     height: 100%;
