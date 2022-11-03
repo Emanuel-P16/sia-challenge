@@ -33,7 +33,7 @@ socket.on('enviar-mensaje', (payload) => {
     } else {
         if (video.currentTime === payload.mensaje) {
         } else {
-            video.currentTime = payload.mensaje + 0.1
+            video.currentTime = payload.mensaje 
             // video.play()
         }
     }
@@ -65,7 +65,7 @@ video.addEventListener('pause', () => {
     socket.emit('enviar-mensaje', payload)
 })
 video.addEventListener('seeked', () => {
-    console.log(video.currentTime)
+    // console.log(video.currentTime)
     const mensaje = video.currentTime
     const payload = {
         mensaje
