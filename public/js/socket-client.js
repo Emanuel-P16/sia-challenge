@@ -14,13 +14,13 @@ const value = 10;
 const socket = io();
 
 socket.on('connect', () => {
-    console.log('conectado');
+    // console.log('conectado');
     // lblOffline.style.display = 'none';
     // lblOnline.style.display = '';
 })
 
 socket.on('disconnect', () => {
-    console.log('desconectado del servidor');
+    // console.log('desconectado del servidor');
     // lblOnline.style.display = 'none';
     // lblOffline.style.display = '';
 })
@@ -32,9 +32,12 @@ socket.on('enviar-mensaje', (payload) => {
         video.pause();
     } else {
         if (video.currentTime === payload.mensaje) {
-        } else {
-            video.currentTime = payload.mensaje 
-            // video.play()
+            // console.log('hola')
+         return null
+        } else if(video.currentTime !== payload.mensaje){
+            video.currentTime = payload.mensaje  
+            // console.log('hola')
+            
         }
     }
 })
@@ -64,13 +67,24 @@ video.addEventListener('pause', () => {
 
     socket.emit('enviar-mensaje', payload)
 })
+// video.addEventListener('seeked', () => {
+//     // console.log(video.currentTime)
+//     // video.pause()
+//     const mensaje = video.currentTime
+//     const payload = {
+//         mensaje
+//     }
+//     socket.emit('enviar-mensaje', payload)
+// })
 video.addEventListener('seeked', () => {
     // console.log(video.currentTime)
-    const mensaje = video.currentTime
+    // video.pause()
+    const mensaje = video.currentTime | 0
     const payload = {
         mensaje
     }
     socket.emit('enviar-mensaje', payload)
+    // console.log('buscar')
 })
 
 /// Buttons Events
@@ -82,7 +96,18 @@ pause.addEventListener('click',()=>{
 })
 back.addEventListener('click',()=>{
     video.currentTime += (value * -1);
+    const mensaje = video.currentTime | 0
+    const payload = {
+        mensaje
+    }
+    socket.emit('enviar-mensaje', payload)
+
 })
 foward.addEventListener('click',()=>{
-    video.currentTime +=value;
+    video.currentTime +=value ;
+    const mensaje = video.currentTime | 0
+    const payload = {
+        mensaje
+    }
+    socket.emit('enviar-mensaje', payload)
 })
