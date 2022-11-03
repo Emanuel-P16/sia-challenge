@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node app",
     "build":"babel  public models app.js  -d build --ignore 'node_modules/**'"
   },
   "keywords": [],
@@ -20,5 +21,9 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0"
-  }
+  },
+  "engines": {
+    "node": "16.x"
+}
+
 }
